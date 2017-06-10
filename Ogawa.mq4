@@ -16,6 +16,9 @@ input double RSI_Upper = 67;
 input double RSI_Bottom = 33;
 input int RSI_Period = 9;
 
+input int Start_Hour = 6;
+input int End_Hour = 23;
+
 int previousSignal;
 
 
@@ -78,6 +81,10 @@ void OnDeinit(const int reason)
 void OnTick()
   {
 //---
+  int h = TimeHour(TimeLocal());
+  if(h < Start_Hour || End_Hour <= h) {
+    return;
+  }
 
   int band = getBandSignal();
   int rsi = getRSISignal();
